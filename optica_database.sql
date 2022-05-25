@@ -1,5 +1,4 @@
-=======
-DROP DATABASE IF EXISTS opticaDatabase ;
+DROP DATABASE IF EXISTS opticaDatabase;
 CREATE DATABASE opticaDatabase;
 USE opticaDatabase;
 
@@ -17,20 +16,21 @@ VALUES(supplierId, 'PincoPalla', 1, '+34 926 123 456', '+34 678 567 567', '56745
 
 CREATE TABLE glasses (
     glassId TINYINT NOT NULL AUTO_INCREMENT,
-    supplierId TINYINT,
-    clientId TINYINT,
-    employeeId TINYINT,
+    supplierId TINYINT NOT NULL,
+    clientId TINYINT NOT NULL,
+    employeeId TINYINT NOT NULL,
     glassBrand VARCHAR(30),
     glassGradue FLOAT,
     glassFrame VARCHAR(16),
     glassColorFrame VARCHAR(16),
     glassColorLens VARCHAR(16),
     price FLOAT,
+    whenSell DATETIME,
     PRIMARY KEY(glassId)
 );
 
 INSERT INTO glasses
-VALUES(glassId, 1 , NULL, NULL, 'brand', 0.2, 'flotant', 'black', 'blue', 45.5);
+VALUES(glassId, 1 , 1, 1, 'rasband', 0.2, 'flotant', 'black', 'blue', 45.5, '2022-05-25 18:12:26');
 
 CREATE TABLE clients (
     clientId INT NOT NULL AUTO_INCREMENT,
@@ -38,13 +38,13 @@ CREATE TABLE clients (
     clientName VARCHAR(30),
     clientTelephone VARCHAR(16),
     clientMail VARCHAR(16),
-    clientDateRegister "on update" CURRENT_TIMESTAMP,
+    clientDateRegister DATETIME,
     clientRecommendBy VARCHAR(16),
     PRIMARY KEY(clientId)
 );
 
 INSERT INTO clients
-VALUES(clientid , 2, 'name', '+34 926 127 569', 'fr@gm.com', CURRENT_TIMESTAMP, 'Pinco');
+VALUES(clientid , 2, 'Nino Rota', '+34 926 127 569', 'fr@gm.com', '2022-05-25 18:12:26', 'Pinco');
 
 CREATE TABLE addressPeople (
     addressId INT NOT NULL AUTO_INCREMENT,
@@ -67,13 +67,14 @@ VALUES(addressId , 'street3', '12','5', 3, 'Barcelona', '08021', 'Spain');
 
 CREATE TABLE employee (
     employeeId TINYINT NOT NULL AUTO_INCREMENT,
-    glassId TINYINT,
-    clientId TINYINT,
     addressId TINYINT,
     employeeName VARCHAR(30),
     employeeTelephone VARCHAR(16),
-    whenSell "on update" CURRENT_TIMESTAMP,
     PRIMARY KEY(employeeId)
 );
 INSERT INTO employee
-VALUES(employeeId, 1, 1, 3, 'name employe', '+34 926 127 569', CURRENT_TIMESTAMP);
+VALUES(employeeId, 3, 'Pepe Pio', '+34 926 127 569' );
+
+SELECT employeeName, whenSell, glassBrand FROM employee
+INNER JOIN glasses
+WHERE employeeId = glasses.employeeId;
