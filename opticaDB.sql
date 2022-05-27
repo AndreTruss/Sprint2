@@ -44,7 +44,8 @@ VALUES
 
 CREATE TABLE glassFrame (
     glassFrameId INT(5) NOT NULL AUTO_INCREMENT,
-    frame VARCHAR(10)
+    frame VARCHAR(10),
+    PRIMARY KEY(glassFrameId)
 );
 INSERT INTO glassFrame (frame)
 VALUES 
@@ -71,7 +72,7 @@ CREATE TABLE glasses (
     FOREIGN KEY (glassFrameId) REFERENCES glassFrame(glassFrameId)
 );
 
-INSERT INTO glasses(supplierId, clientId, employeeId, glassBrand, glassGradue, glassFrame, glassColorFrame, glassColorLens, price, whenSell)
+INSERT INTO glasses(supplierId, clientId, employeeId, glassBrand, glassGradue, glassFrameId, glassColorFrame, glassColorLens, price, whenSell)
 VALUES
     (1, 1, 1, 'rasband', 0.2, 1, 'black', 'blue', 45.5, '2022-02-22'),
     (1, 2, 2, 'armadi', 0.1, 3, 'brown', 'red', 82.5, '2022-03-12'),
