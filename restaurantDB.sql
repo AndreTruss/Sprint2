@@ -35,13 +35,30 @@ CREATE TABLE products (
     productDescription VARCHAR(30),
     productImage BLOB,
     price FLOAT,
-    PRIMARY KEY(orderId),
-    FOREIGN KEY (clientId) REFERENCES client(clientId)
+    PRIMARY KEY(productId)
 );
 
 CREATE TABLE pizzas (
     SELECT productId, productName, productDescription, productImage, price FROM products
     WHERE productName LIKE 'pizza%'
+);
+
+CREATE TABLE hamburgers (
+    SELECT productId, productName, productDescription, productImage, price FROM products
+    WHERE productName LIKE 'hamburger%'
+);
+
+CREATE TABLE drinks (
+    SELECT productId, productName, productDescription, productImage, price FROM products
+    WHERE productName NOT LIKE 'pizza%' AND productName NOT LIKE 'hamburger%'
+);
+
+CREATE TABLE categoryPizzas (
+	categoryId INT(5) NOT NULL AUTO_INCREMENT,
+    categoryName VARCHAR(15) NOT NULL,
+    productId INT(5) UNIQUE,
+    PRIMARY KEY(categoryId),
+    FOREIGN KEY (productId) REFERENCES pizzas(productId)
 );
 
 CREATE TABLE employee (
@@ -51,8 +68,7 @@ CREATE TABLE employee (
     employeeNIF VARCHAR(9),
     employeeTelephone VARCHAR(15),
     employeeRule VARCHAR(15),
-    PRIMARY KEY(orderId),
-    FOREIGN KEY (clientId) REFERENCES client(clientId)
+    PRIMARY KEY(employeeId)
 );
 
 CREATE TABLE shop (
@@ -62,7 +78,7 @@ CREATE TABLE shop (
     localitatId INT(5),
     provinciaId INT(5),
     employeeId INT(5) UNIQUE,
-    PRIMARY KEY(orderId),
+    PRIMARY KEY(shopId),
     FOREIGN KEY (employeeId) REFERENCES employee(employeeId)
 );
 
@@ -74,5 +90,5 @@ CREATE TABLE orders (
     productsQuantity INT(5),
     totalPrice FLOAT,
     PRIMARY KEY(orderId),
-    FOREIGN KEY (clientId) REFERENCES client(clientId)
+    FOREIGN KEY (clientId) REFERENCES clients(clientId)
 );
