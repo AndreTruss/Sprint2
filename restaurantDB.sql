@@ -150,15 +150,15 @@ SELECT 'Category Mare', productId FROM products
 WHERE productType LIKE 'pizza' AND productName LIKE '%Margherita';
 
 SET @howmanyPizzas = (SELECT COUNT(productType) FROM products WHERE productType LIKE 'pizza' AND orderId = 1) ;
-UPDATE orders 
-SET howmanyPizzas = @howmanyPizzas
+SET @howmanyHamburgers = (SELECT COUNT(productType) FROM products WHERE productType LIKE 'hamburger' AND orderId = 1) ;
+SET @howmanyDrinks = (SELECT COUNT(productType) FROM products WHERE productType LIKE 'drinks' AND orderId = 1) ;
+
+UPDATE orders SET howmanyPizzas = @howmanyPizzas, howmanyHamburgers = @howmanyHamburgers, howmanyDrinks = @howmanyDrinks
 WHERE orderId = 1;
 
-(Select clientName, sum(price), COUNT(productType) from products 
+Select clientName, sum(price) from products 
 inner join orders
 on orders.orderId = products.orderId
 inner join clients
 on orders.clientId = clients.clientId
-WHERE productType LIKE 'pizza' 
-group by clients.clientId);
-
+group by clients.clientId;
