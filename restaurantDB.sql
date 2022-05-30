@@ -94,12 +94,6 @@ CREATE TABLE categoryPizzas (
     FOREIGN KEY (productId) REFERENCES pizzas(productId)
 );
 
-CREATE TABLE employeeRule (
-    employeeRuleId INT(5) NOT NULL AUTO_INCREMENT,
-    rule VARCHAR(10),
-    PRIMARY KEY(employeeRuleId)
-); 
-
 CREATE TABLE employee (
     employeeId INT(5) NOT NULL AUTO_INCREMENT,
     employeeName VARCHAR(15) NOT NULL,
