@@ -42,16 +42,7 @@ VALUES
     ('Pepe Pio', '+34 926 127 569', 'afd@df.com' ),
     ('Pepa Mia', '+34 934 567 904', 'gfd@df.com' );
 
-CREATE TABLE glassFrame (
-    glassFrameId INT(5) NOT NULL AUTO_INCREMENT,
-    frame VARCHAR(10),
-    PRIMARY KEY(glassFrameId)
-);
-INSERT INTO glassFrame (frame)
-VALUES 
-    ('Flotant'),
-    ('Pasta'),
-    ('Metallica');
+
 
 CREATE TABLE glasses (
     glassId INT(5) NOT NULL AUTO_INCREMENT,
@@ -60,7 +51,7 @@ CREATE TABLE glasses (
     employeeId INT(5) NOT NULL,
     glassBrand VARCHAR(30) NOT NULL,
     glassGradue FLOAT,
-    glassFrameId INT(1),
+    glassFrame ENUM('Flotant', 'Pasta', 'Metallica'),
     glassColorFrame VARCHAR(16),
     glassColorLens VARCHAR(16),
     price FLOAT,
@@ -68,17 +59,16 @@ CREATE TABLE glasses (
     PRIMARY KEY(glassId),
     FOREIGN KEY (supplierId) REFERENCES suppliers(supplierId),
     FOREIGN KEY (clientId) REFERENCES clients(clientId),
-    FOREIGN KEY (employeeId) REFERENCES employees(employeeId), 
-    FOREIGN KEY (glassFrameId) REFERENCES glassFrame(glassFrameId)
+    FOREIGN KEY (employeeId) REFERENCES employees(employeeId)
 );
 
 INSERT INTO glasses(supplierId, clientId, employeeId, glassBrand, glassGradue, glassFrameId, glassColorFrame, glassColorLens, price, whenSell)
 VALUES
-    (1, 1, 1, 'rasband', 0.2, 1, 'black', 'blue', 45.5, '2022-02-22'),
-    (1, 2, 2, 'armadi', 0.1, 3, 'brown', 'red', 82.5, '2022-03-12'),
-    (2, 1, 1, 'cuore', 0.3, 1, 'white', 'clear', 35.5, '2022-04-04'),
-    (1, 2, 2, 'rufus', 0.1, 2, 'green', 'yellow', 65.5, '2022-05-02'),
-    (2, 1, 2, 'valens', 0.2, 3, 'black', 'clear', 55.5, '2022-06-11');
+    (1, 1, 1, 'rasband', 0.2, 'Flotant', 'black', 'blue', 45.5, '2022-02-22'),
+    (1, 2, 2, 'armadi', 0.1, 'Metallica', 'brown', 'red', 82.5, '2022-03-12'),
+    (2, 1, 1, 'cuore', 0.3, 'Flotant', 'white', 'clear', 35.5, '2022-04-04'),
+    (1, 2, 2, 'rufus', 0.1, 'Pasta', 'green', 'yellow', 65.5, '2022-05-02'),
+    (2, 1, 2, 'valens', 0.2, 'Metallica', 'black', 'clear', 55.5, '2022-06-11');
 
 CREATE TABLE addressPeople (
     addressId INT(5) NOT NULL AUTO_INCREMENT,
