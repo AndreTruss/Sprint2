@@ -62,13 +62,13 @@ CREATE TABLE glasses (
     FOREIGN KEY (employeeId) REFERENCES employees(employeeId)
 );
 
-INSERT INTO glasses(supplierId, clientId, employeeId, glassBrand, glassGradue, glassFrameId, glassColorFrame, glassColorLens, price, whenSell)
+INSERT INTO glasses(supplierId, clientId, employeeId, glassBrand, glassGradue, glassFrame, glassColorFrame, glassColorLens, price, whenSell)
 VALUES
-    (1, 1, 1, 'rasband', 0.2, 'Flotant', 'black', 'blue', 45.5, '2022-02-22'),
-    (1, 2, 2, 'armadi', 0.1, 'Metallica', 'brown', 'red', 82.5, '2022-03-12'),
+    (1, 1, 1, 'rasband', 0.2, 'Flotant', 'black', 'blue', 45.5, '2020-02-22'),
+    (1, 2, 2, 'armadi', 0.1, 'Metallica', 'brown', 'red', 82.5, '2021-03-12'),
     (2, 1, 1, 'cuore', 0.3, 'Flotant', 'white', 'clear', 35.5, '2022-04-04'),
     (1, 2, 2, 'rufus', 0.1, 'Pasta', 'green', 'yellow', 65.5, '2022-05-02'),
-    (2, 1, 2, 'valens', 0.2, 'Metallica', 'black', 'clear', 55.5, '2022-06-11');
+    (2, 1, 2, 'valens', 0.2, 'Metallica', 'black', 'clear', 55.5, NOW());
 
 CREATE TABLE addressPeople (
     addressId INT(5) NOT NULL AUTO_INCREMENT,
@@ -100,4 +100,20 @@ VALUES
 
 SELECT employeeName, whenSell, glassBrand FROM employees
 INNER JOIN glasses
-WHERE employees.employeeId = glasses.employeeId;
+ON employees.employeeId = glasses.employeeId;
+
+SELECT clientName, COUNT(glasses.clientId) AS 'Total compras' FROM clients
+INNER JOIN glasses
+ON clients.clientId = glasses.clientId
+GROUP BY clients.clientId; 
+
+SELECT employeeName, glassBrand, whenSell FROM employees
+INNER JOIN glasses
+ON employees.employeeId = glasses.employeeId
+WHERE glasses.whenSell LIKE '2022%';
+
+SELECT supplierName FROM suppliers
+INNER JOIN glasses
+ON suppliers.supplierId = glasses.supplierId
+GROUP BY suppliers.supplierId; 
+
