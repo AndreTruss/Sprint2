@@ -2,12 +2,12 @@ DROP DATABASE IF EXISTS restaurantDB;
 CREATE DATABASE restaurantDB;
 USE restaurantDB;
 
-CREATE TABLE localitat (
+CREATE TABLE localitats (
     localitatId INT(5) NOT NULL AUTO_INCREMENT,
     localitatName VARCHAR(15) NOT NULL,
     PRIMARY KEY(localitatId)
 );
-INSERT INTO localitat (localitatName)
+INSERT INTO localitats (localitatName)
 VALUES 
     ('Arenys de Mar'),
     ('Barcelona'),
@@ -22,47 +22,49 @@ VALUES
     ('Tarragona'),
     ('Vila-Seca');
 
-CREATE TABLE provincia (
+CREATE TABLE provincias (
     provinciaId INT(5) NOT NULL AUTO_INCREMENT,
     provinciaName VARCHAR(15) NOT NULL,
     localitatId INT(5) NOT NULL UNIQUE,
     PRIMARY KEY(provinciaId),
-    FOREIGN KEY (localitatId) REFERENCES localitat(localitatId)
+    FOREIGN KEY (localitatId) REFERENCES localitats(localitatId)
 );
-INSERT INTO provincia (provinciaName, localitatId)
-SELECT 'Barcelona', localitatId FROM localitat WHERE localitatId BETWEEN 1 AND 3;
-INSERT INTO provincia (provinciaName, localitatId)
-SELECT 'Gerona', localitatId FROM localitat WHERE localitatId BETWEEN 4 AND 6;
-INSERT INTO provincia (provinciaName, localitatId)
-SELECT 'Lleida', localitatId FROM localitat WHERE localitatId BETWEEN 7 AND 9;
-INSERT INTO provincia (provinciaName, localitatId)
-SELECT 'Tarragona', localitatId FROM localitat WHERE localitatId BETWEEN 10 AND 12;
+INSERT INTO provincias (provinciaName, localitatId)
+SELECT 'Barcelona', localitatId FROM localitats WHERE localitatId BETWEEN 1 AND 3;
+INSERT INTO provincias (provinciaName, localitatId)
+SELECT 'Gerona', localitatId FROM localitats WHERE localitatId BETWEEN 4 AND 6;
+INSERT INTO provincias (provinciaName, localitatId)
+SELECT 'Lleida', localitatId FROM localitats WHERE localitatId BETWEEN 7 AND 9;
+INSERT INTO provincias (provinciaName, localitatId)
+SELECT 'Tarragona', localitatId FROM localitats WHERE localitatId BETWEEN 10 AND 12;
 
 CREATE TABLE clients (
     clientId INT(5) NOT NULL AUTO_INCREMENT,
     clientName VARCHAR(15) NOT NULL,
     clientSurname VARCHAR(15) NOT NULL,
     clientAdress VARCHAR(30),
-    localitatName VARCHAR(15),
+    localitatId INT(5),
     clientTelephone VARCHAR(15),
-    PRIMARY KEY(clientId)
+    PRIMARY KEY(clientId),
+    FOREIGN KEY (localitatId) REFERENCES localitats(localitatId)
 );
-INSERT INTO clients(clientName, clientSurname, clientAdress, localitatName, clientTelephone)
+INSERT INTO clients(clientName, clientSurname, clientAdress, localitatId, clientTelephone)
 VALUES
-    ('Pepe', 'Carvalho', 'av. de la luz, 6', 'Barcelona', '+34 345 543 123'),
-    ('Pepa', 'Flores', 'c/ del mar, 10', 'Palamos', '+34 123 456 789');
+    ('Pepe', 'Carvalho', 'av. de la luz, 6', 2, '+34 345 543 123'),
+    ('Pepa', 'Flores', 'c/ del mar, 10', 6, '+34 123 456 789');
 
 CREATE TABLE shop (
     shopId INT(5) NOT NULL AUTO_INCREMENT,
     shopAdress VARCHAR(30),
     shopPostalCode VARCHAR(10),
-    localitatName VARCHAR(15),
-    PRIMARY KEY(shopId)
+    localitatId INT(5),
+    PRIMARY KEY(shopId),
+    FOREIGN KEY (localitatId) REFERENCES localitats(localitatId)
 );
-INSERT INTO shop (shopAdress, shopPostalCode, localitatName)
+INSERT INTO shop (shopAdress, shopPostalCode, localitatId)
 VALUES
-    ('av. Roma, 140', '12345', 'Barcelona'),
-    ('c/ Marina, 67', '45678', 'Gerona');
+    ('av. Roma, 140', '12345', 2),
+    ('c/ Marina, 67', '45678', 4);
 
 CREATE TABLE employees (
     employeeId INT(5) NOT NULL AUTO_INCREMENT,
@@ -86,7 +88,7 @@ VALUES
 CREATE TABLE orders (
     orderId INT(5) NOT NULL AUTO_INCREMENT,
     clientId INT(5),
-    shopId INT(5) ,
+    shopId INT(5),
     orderDate DATETIME,
     orderDelivery ENUM('Delivery at home', 'Pick up to store'),
     howmanyPizzas INT(5),
@@ -216,3 +218,15 @@ SELECT NOW(), employeeId, orderId FROM orders
 INNER JOIN employees
 ON employees.shopId = orders.shopId
 WHERE orders.orderDelivery LIKE 'Delivery at home' AND employees.employeeRule LIKE 'Repartidor';
+
+SELECT localitatName, SUM(howmanyDrinks) FROM clients
+INNER JOIN orders
+ON orders.clientId = clients.clientId
+INNER JOIN localitats
+ON clients.localitatId = localitats.localitatId
+GROUP BY clients.clientId;
+
+SELECT employeeName, COUNT(orderId) FROM orders
+INNER JOIN employees
+ON orders.shopId = employees.shopId
+GROUP BY employees.employeeName;
