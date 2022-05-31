@@ -104,17 +104,17 @@ VALUES
 
 /* CREATE TABLE pizzas (
     SELECT productId, productName, productDescription, productImage, price FROM products
-    WHERE productType LIKE 'pizza'
+    WHERE productId BETWEEN 100 AND 199
 );
 
 CREATE TABLE hamburgers (
     SELECT productId, productName, productDescription, productImage, price FROM products
-    WHERE productType LIKE 'hamburger'
+    WHERE productId BETWEEN 200 AND 299
 );
 
 CREATE TABLE drinks (
     SELECT productId, productName, productDescription, productImage, price FROM products
-    WHERE productType LIKE 'drink' 
+    WHERE productId BETWEEN 300 AND 399 
 ); */
 
 CREATE TABLE categoryPizzas (
@@ -126,7 +126,7 @@ CREATE TABLE categoryPizzas (
 );
 INSERT INTO categoryPizzas (categoryName, productId)
 SELECT 'Category Mare', productId FROM products
-WHERE productType LIKE 'pizza' AND productName LIKE '%Margherita';
+WHERE productId = 100;
 
 CREATE TABLE orders (
     orderId INT(5) NOT NULL AUTO_INCREMENT,
