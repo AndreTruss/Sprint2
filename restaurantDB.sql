@@ -84,27 +84,6 @@ VALUES
     ('Isolda', 'Nero', '34856404K', '+34 678 854 023','Repartidor', 1),
     ('Alex', 'Zana', '74216404K', '+34 478 254 923','Repartidor', 2);
 
-
-CREATE TABLE orders (
-    orderId INT(5) NOT NULL AUTO_INCREMENT,
-    clientId INT(5),
-    shopId INT(5),
-    orderDate DATETIME,
-    orderDelivery ENUM('Delivery at home', 'Pick up to store'),
-    howmanyPizzas INT(5),
-    howmanyHamburgers INT(5),
-    howmanyDrinks INT(5),
-    totalPrice FLOAT,
-    PRIMARY KEY(orderId),
-    FOREIGN KEY (clientId) REFERENCES clients(clientId),
-    FOREIGN KEY (shopId) REFERENCES shop(shopId)
-);
-INSERT INTO orders (clientId, shopId, orderDate, orderDelivery)
-VALUES
-    (1, 1, NOW(), 'Delivery at home'),
-    (1, 1, NOW(), 'Delivery at home'),
-    (2, 2, NOW(), 'Pick up to store');
-
 CREATE TABLE products (
     productId INT(5) NOT NULL,
     productName VARCHAR(30) NOT NULL,
@@ -149,10 +128,29 @@ INSERT INTO categoryPizzas (categoryName, productId)
 SELECT 'Category Mare', productId FROM products
 WHERE productType LIKE 'pizza' AND productName LIKE '%Margherita';
 
+CREATE TABLE orders (
+    orderId INT(5) NOT NULL AUTO_INCREMENT,
+    clientId INT(5),
+    shopId INT(5),
+    orderDate DATETIME,
+    orderDelivery ENUM('Delivery at home', 'Pick up to store'),
+    PRIMARY KEY(orderId),
+    FOREIGN KEY (clientId) REFERENCES clients(clientId),
+    FOREIGN KEY (shopId) REFERENCES shop(shopId)
+);
+INSERT INTO orders (clientId, shopId, orderDate, orderDelivery)
+VALUES
+    (1, 1, NOW(), 'Delivery at home'),
+    (1, 1, NOW(), 'Delivery at home'),
+    (2, 2, NOW(), 'Pick up to store');
+
 CREATE TABLE orderMenu (
     orderMenuId INT(5) NOT NULL AUTO_INCREMENT,
     orderId INT(5),
     productId INT(5),
+    howmanyPizzas INT(5) DEFAULT 0,
+    howmanyHamburgers INT(5) DEFAULT 0,
+    howmanyDrinks INT(5) DEFAULT 0,
     PRIMARY KEY(orderMenuId),
     FOREIGN KEY (orderId) REFERENCES orders(orderId),
     FOREIGN KEY (productId) REFERENCES products(productId)
@@ -162,12 +160,13 @@ VALUES
     (1, 100),
     (1, 200),
     (2, 300),
+    (3, 100),
     (3, 101),
     (3, 201),
     (3, 301);
 
 
-SET @howmanyPizzas1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 100 AND 199 AND orderId = 1) ;
+/* SET @howmanyPizzas1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 100 AND 199 AND orderId = 1) ;
 SET @howmanyHamburgers1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 200 AND 299 AND orderId = 1) ;
 SET @howmanyDrinks1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 300 AND 399 AND orderId = 1) ;
 SET @totalPrice1 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
@@ -183,15 +182,24 @@ SET @howmanyPizzas3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BE
 SET @howmanyHamburgers3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 200 AND 299 AND orderId = 3) ;
 SET @howmanyDrinks3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 300 AND 399 AND orderId = 3) ;
 SET @totalPrice3 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
-WHERE  orderId = 3) ;
+WHERE  orderId = 3) ; */
+/* SET @howmanyPizzas = SELECT IF (productId BETWEEN 100 AND 199, howmanyPizzas + 1, howmanyPizzas) FROM orderMenu;
+UPDATE orders SET 
+    howmanyPizzas = @howmanyPizzas; */ 
+ UPDATE orderMenu SET
+    howmanyPizzas = IF(productId BETWEEN 100 AND 199, howmanyPizzas + 1, howmanyPizzas), 
+    howmanyHamburgers = IF(productId BETWEEN 200 AND 299, howmanyHamburgers + 1, howmanyHamburgers),
+    howmanyDrinks = IF(productId BETWEEN 300 AND 399, howmanyDrinks + 1, howmanyDrinks);
 
-UPDATE orders SET 
-    howmanyPizzas = @howmanyPizzas1, 
-    howmanyHamburgers = @howmanyHamburgers1, 
-    howmanyDrinks = @howmanyDrinks1, 
-    totalPrice = @totalPrice1
-WHERE orderId = 1;
-UPDATE orders SET 
+SELECT clientName, clientSurname, SUM(products.price) AS 'Total Price' FROM orderMenu 
+INNER JOIN products 
+ON orderMenu.productId = products.productId
+INNER JOIN orders 
+ON orderMenu.orderId = orders.orderId
+INNER JOIN clients 
+ON clients.clientId = orders.clientId
+GROUP BY clients.clientId; 
+/* UPDATE orders SET 
     howmanyPizzas = @howmanyPizzas2, 
     howmanyHamburgers = @howmanyHamburgers2, 
     howmanyDrinks = @howmanyDrinks2, 
@@ -202,7 +210,7 @@ UPDATE orders SET
     howmanyHamburgers = @howmanyHamburgers3, 
     howmanyDrinks = @howmanyDrinks3, 
     totalPrice = @totalPrice3
-WHERE orderId = 3;
+WHERE orderId = 3; */
 
 CREATE TABLE orderDelivery (
     orderDeliveryId INT(5) NOT NULL AUTO_INCREMENT,
@@ -219,8 +227,17 @@ INNER JOIN employees
 ON employees.shopId = orders.shopId
 WHERE orders.orderDelivery LIKE 'Delivery at home' AND employees.employeeRule LIKE 'Repartidor';
 
-SELECT localitatName, SUM(howmanyDrinks) FROM clients
+SELECT clientName, SUM(howmanyPizzas) FROM orderMenu
 INNER JOIN orders
+ON orders.orderId = orderMenu.orderId
+INNER JOIN clients
+ON orders.clientId = clients.clientId
+GROUP BY clients.clientId;
+
+SELECT localitatName, SUM(howmanyDrinks) FROM orderMenu
+INNER JOIN orders
+ON orders.orderId = orderMenu.orderId
+INNER JOIN clients
 ON orders.clientId = clients.clientId
 INNER JOIN localitats
 ON clients.localitatId = localitats.localitatId
