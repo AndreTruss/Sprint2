@@ -106,7 +106,7 @@ VALUES
     (2, 2, NOW(), 'Pick up to store');
 
 CREATE TABLE products (
-    productId INT(5) NOT NULL AUTO_INCREMENT,
+    productId INT(5) NOT NULL,
     productName VARCHAR(30) NOT NULL,
     productDescription VARCHAR(50),
     productImage BLOB,
@@ -114,14 +114,14 @@ CREATE TABLE products (
     productType ENUM('pizza', 'hamburger', 'drink'),
     PRIMARY KEY(productId)
 );
-INSERT INTO products(productName, productDescription, productImage, price, productType)
+INSERT INTO products(productId, productName, productDescription, productImage, price, productType)
 VALUES
-    ('Pizza Margherita', 'tomate, mozzarella, albahaja', LOAD_FILE('/image_path/image_fileName.png'), 7.5, 'pizza'),
-    ('Pizza 4 quesos', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10, 'pizza'),
-    ('Hamburger clasico', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10, 'hamburger'),
-    ('Hamburger con queso', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10, 'hamburger'),
-    ('Wine', 'White, Penedes 2016', LOAD_FILE('/image_path/image_fileName.png'), 8, 'drink'),
-    ('Water', 'Bezoya', LOAD_FILE('/image_path/image_fileName.png'), 1.5, 'drink');
+    (100, 'Pizza Margherita', 'tomate, mozzarella, albahaja', LOAD_FILE('/img/img.jpg'), 7.5, 'pizza'),
+    (101, 'Pizza 4 quesos', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10, 'pizza'),
+    (200, 'Hamburger clasico', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10, 'hamburger'),
+    (201, 'Hamburger con queso', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10, 'hamburger'),
+    (300, 'Wine', 'White, Penedes 2016', LOAD_FILE('/image_path/image_fileName.png'), 8, 'drink'),
+    (301, 'Water', 'Bezoya', LOAD_FILE('/image_path/image_fileName.png'), 1.5, 'drink');
 
 /* CREATE TABLE pizzas (
     SELECT productId, productName, productDescription, productImage, price FROM products
@@ -149,15 +149,15 @@ INSERT INTO categoryPizzas (categoryName, productId)
 SELECT 'Category Mare', productId FROM products
 WHERE productType LIKE 'pizza' AND productName LIKE '%Margherita';
 
-CREATE TABLE orderList (
-    orderListId INT(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE orderMenu (
+    orderMenuId INT(5) NOT NULL AUTO_INCREMENT,
     orderId INT(5),
     productId INT(5),
-    PRIMARY KEY(orderListId),
+    PRIMARY KEY(orderMenuId),
     FOREIGN KEY (orderId) REFERENCES orders(orderId),
     FOREIGN KEY (productId) REFERENCES products(productId)
 );
-INSERT INTO orderList (orderId, productId)
+INSERT INTO orderMenu (orderId, productId)
 VALUES
     (1, 1),
     (1, 3),
@@ -167,22 +167,22 @@ VALUES
     (3, 6);
 
 
-SET @howmanyPizzas1 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 1 AND 2 AND orderId = 1) ;
-SET @howmanyHamburgers1 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 3 AND 4 AND orderId = 1) ;
-SET @howmanyDrinks1 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 5 AND 6 AND orderId = 1) ;
-SET @totalPrice1 = (SELECT SUM(products.price) FROM orderList INNER JOIN products ON orderList.productId = products.productId
+SET @howmanyPizzas1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 100 AND 199 AND orderId = 1) ;
+SET @howmanyHamburgers1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 200 AND 299 AND orderId = 1) ;
+SET @howmanyDrinks1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 300 AND 399 AND orderId = 1) ;
+SET @totalPrice1 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
 WHERE  orderId = 1) ;
 
-SET @howmanyPizzas2 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 1 AND 2 AND orderId = 2) ;
-SET @howmanyHamburgers2 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 3 AND 4 AND orderId = 2) ;
-SET @howmanyDrinks2 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 5 AND 6 AND orderId = 2) ;
-SET @totalPrice2 = (SELECT SUM(products.price) FROM orderList INNER JOIN products ON orderList.productId = products.productId
+SET @howmanyPizzas2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 1 AND 2 AND orderId = 2) ;
+SET @howmanyHamburgers2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 3 AND 4 AND orderId = 2) ;
+SET @howmanyDrinks2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 5 AND 6 AND orderId = 2) ;
+SET @totalPrice2 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
 WHERE  orderId = 2) ;
 
-SET @howmanyPizzas3 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 1 AND 2 AND orderId = 3) ;
-SET @howmanyHamburgers3 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 3 AND 4 AND orderId = 3) ;
-SET @howmanyDrinks3 = (SELECT COUNT(productId) FROM orderList WHERE productId BETWEEN 5 AND 6 AND orderId = 3) ;
-SET @totalPrice3 = (SELECT SUM(products.price) FROM orderList INNER JOIN products ON orderList.productId = products.productId
+SET @howmanyPizzas3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 1 AND 2 AND orderId = 3) ;
+SET @howmanyHamburgers3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 3 AND 4 AND orderId = 3) ;
+SET @howmanyDrinks3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 5 AND 6 AND orderId = 3) ;
+SET @totalPrice3 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
 WHERE  orderId = 3) ;
 
 UPDATE orders SET 
