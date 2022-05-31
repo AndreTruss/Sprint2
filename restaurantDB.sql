@@ -159,12 +159,12 @@ CREATE TABLE orderMenu (
 );
 INSERT INTO orderMenu (orderId, productId)
 VALUES
-    (1, 1),
-    (1, 3),
-    (2, 5),
-    (3, 2),
-    (3, 4),
-    (3, 6);
+    (1, 100),
+    (1, 200),
+    (2, 300),
+    (3, 101),
+    (3, 201),
+    (3, 301);
 
 
 SET @howmanyPizzas1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 100 AND 199 AND orderId = 1) ;
