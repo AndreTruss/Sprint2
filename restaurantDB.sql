@@ -173,15 +173,15 @@ SET @howmanyDrinks1 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BE
 SET @totalPrice1 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
 WHERE  orderId = 1) ;
 
-SET @howmanyPizzas2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 1 AND 2 AND orderId = 2) ;
-SET @howmanyHamburgers2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 3 AND 4 AND orderId = 2) ;
-SET @howmanyDrinks2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 5 AND 6 AND orderId = 2) ;
+SET @howmanyPizzas2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 100 AND 199 AND orderId = 2) ;
+SET @howmanyHamburgers2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 200 AND 299 AND orderId = 2) ;
+SET @howmanyDrinks2 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 300 AND 399 AND orderId = 2) ;
 SET @totalPrice2 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
 WHERE  orderId = 2) ;
 
-SET @howmanyPizzas3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 1 AND 2 AND orderId = 3) ;
-SET @howmanyHamburgers3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 3 AND 4 AND orderId = 3) ;
-SET @howmanyDrinks3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 5 AND 6 AND orderId = 3) ;
+SET @howmanyPizzas3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 100 AND 199 AND orderId = 3) ;
+SET @howmanyHamburgers3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 200 AND 299 AND orderId = 3) ;
+SET @howmanyDrinks3 = (SELECT COUNT(productId) FROM orderMenu WHERE productId BETWEEN 300 AND 399 AND orderId = 3) ;
 SET @totalPrice3 = (SELECT SUM(products.price) FROM orderMenu INNER JOIN products ON orderMenu.productId = products.productId
 WHERE  orderId = 3) ;
 
