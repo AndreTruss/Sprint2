@@ -92,13 +92,8 @@ CREATE TABLE orders (
 );
 
 CREATE TABLE orderMenu (
-    orderMenuId INT(5) NOT NULL AUTO_INCREMENT,
     orderId INT(5),
     productId INT(5),  
-    howmanyPizzas INT(5) DEFAULT 0,
-    howmanyHamburgers INT(5) DEFAULT 0,
-    howmanyDrinks INT(5) DEFAULT 0,
-    PRIMARY KEY(orderMenuId),
     FOREIGN KEY (orderId) REFERENCES orders(orderId),
     FOREIGN KEY (productId) REFERENCES products(productId)
 );
@@ -250,7 +245,7 @@ WHERE orderMenu.productId BETWEEN 300 AND 399
 GROUP BY clients.clientId;
 
 -- Llista quantes comandes ha efectuat un determinat empleat
-SELECT employeeName, COUNT(orderId) AS 'Number of orders' FROM orders
-INNER JOIN employees
+SELECT employeeName, employeeSurname, employeeRule, COUNT(orderId) AS 'Number of orders' FROM employees
+INNER JOIN orders
 ON orders.shopId = employees.shopId
-GROUP BY employees.employeeName;
+GROUP BY employees.employeeId;
