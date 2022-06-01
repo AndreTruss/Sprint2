@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS restaurantDB;
-CREATE DATABASE restaurantDB;
+CREATE DATABASE restaurantDB CHARACTER SET utf8mb4;
 USE restaurantDB;
 
 CREATE TABLE localitats (

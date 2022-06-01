@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS opticadatabase;
-CREATE DATABASE opticadatabase;
+CREATE DATABASE opticadatabase CHARACTER SET utf8mb4;
 USE opticadatabase;
 
 CREATE TABLE suppliers (
