@@ -97,21 +97,24 @@ VALUES
     (2, NULL, NULL, 'street5', '63','5', 2, 'Barcelona', '08032', 'Spain'),
     (NULL, 2, NULL, 'street6', '31','3', 6, 'Barcelona', '08231', 'Spain');
 
-
+--El nostre sistema haurà d’indicar qui ha sigut l’empleat que ha venut cada ullera i quan.
 SELECT employeeName, whenSell, glassBrand FROM employees
 INNER JOIN glasses
 ON employees.employeeId = glasses.employeeId;
 
+--Llista el total de compres d'un client
 SELECT clientName, COUNT(glasses.clientId) AS 'Total compras' FROM clients
 INNER JOIN glasses
 ON clients.clientId = glasses.clientId
 GROUP BY clients.clientId; 
 
+--Llista les diferents ulleres que ha venut un empleat durant un any
 SELECT employeeName, glassBrand, whenSell FROM employees
 INNER JOIN glasses
 ON employees.employeeId = glasses.employeeId
 WHERE glasses.whenSell LIKE '2022%';
 
+--Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica
 SELECT supplierName FROM suppliers
 INNER JOIN glasses
 ON suppliers.supplierId = glasses.supplierId

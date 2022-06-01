@@ -227,11 +227,12 @@ INNER JOIN employees
 ON employees.shopId = orders.shopId
 WHERE orders.orderDelivery LIKE 'Delivery at home' AND employees.employeeRule LIKE 'Repartidor';
 
-SELECT clientName, SUM(howmanyPizzas) FROM orderMenu
+SELECT clientName, COUNT(orderMenu.productID) AS 'Number of pizza' FROM orderMenu
 INNER JOIN orders
 ON orders.orderId = orderMenu.orderId
 INNER JOIN clients
 ON orders.clientId = clients.clientId
+WHERE orderMenu.productId BETWEEN 100 AND 199
 GROUP BY clients.clientId;
 
 SELECT localitatName, SUM(howmanyDrinks) FROM orderMenu
