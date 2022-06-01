@@ -10,10 +10,6 @@ supplierFax VARCHAR(16),
 supplierNIF VARCHAR(9),
 PRIMARY KEY(supplierId)
 );
-INSERT INTO suppliers(supplierName, supplierTelephone, supplierFax, supplierNIF)
-VALUES
-    ('PincoPalla', '+34 926 123 456', '+34 678 567 567', '56748956N'),
-    ('DiboDabo', '+34 865 987 234', '+34 865 987 234', '12345656P');
 
 CREATE TABLE clients (
     clientId INT(5) NOT NULL AUTO_INCREMENT,
@@ -25,11 +21,6 @@ CREATE TABLE clients (
     PRIMARY KEY(clientId)
 );
 
-INSERT INTO clients(clientName, clientTelephone, clientMail, clientDateRegister, clientRecommendBy)
-VALUES
-    ('Nino Rota', '+34 926 127 569', 'fr@gm.com', '2022-02-22', 'Pinco'),
-    ('Nina Nera', '+34 912 765 324', 'rom@gm.com', '2022-03-12', 'Carlo');
-
 CREATE TABLE employees (
     employeeId INT(5) NOT NULL AUTO_INCREMENT,
     employeeName VARCHAR(30) NOT NULL,
@@ -37,12 +28,6 @@ CREATE TABLE employees (
     employeeMail VARCHAR(16),
     PRIMARY KEY(employeeId)
 );
-INSERT INTO employees(employeeName, employeeTelephone, employeeMail)
-VALUES
-    ('Pepe Pio', '+34 926 127 569', 'afd@df.com' ),
-    ('Pepa Mia', '+34 934 567 904', 'gfd@df.com' );
-
-
 
 CREATE TABLE glasses (
     glassId INT(5) NOT NULL AUTO_INCREMENT,
@@ -62,14 +47,6 @@ CREATE TABLE glasses (
     FOREIGN KEY (employeeId) REFERENCES employees(employeeId)
 );
 
-INSERT INTO glasses(supplierId, clientId, employeeId, glassBrand, glassGradue, glassFrame, glassColorFrame, glassColorLens, price, whenSell)
-VALUES
-    (1, 1, 1, 'rasband', 0.2, 'Flotant', 'black', 'blue', 45.5, '2020-02-22'),
-    (1, 2, 2, 'armadi', 0.1, 'Metallica', 'brown', 'red', 82.5, '2021-03-12'),
-    (2, 1, 1, 'cuore', 0.3, 'Flotant', 'white', 'clear', 35.5, '2022-04-04'),
-    (1, 2, 2, 'rufus', 0.1, 'Pasta', 'green', 'yellow', 65.5, '2022-05-02'),
-    (2, 1, 2, 'valens', 0.2, 'Metallica', 'black', 'clear', 55.5, NOW());
-
 CREATE TABLE addressPeople (
     addressId INT(5) NOT NULL AUTO_INCREMENT,
     supplierId INT(5),
@@ -88,6 +65,36 @@ CREATE TABLE addressPeople (
     FOREIGN KEY(employeeId) REFERENCES employees(employeeId)
 );
 
+
+-- INSERT INTO
+
+INSERT INTO suppliers(supplierName, supplierTelephone, supplierFax, supplierNIF)
+VALUES
+    ('PincoPalla', '+34 926 123 456', '+34 678 567 567', '56748956N'),
+    ('DiboDabo', '+34 865 987 234', '+34 865 987 234', '12345656P');
+
+
+INSERT INTO clients(clientName, clientTelephone, clientMail, clientDateRegister, clientRecommendBy)
+VALUES
+    ('Nino Rota', '+34 926 127 569', 'fr@gm.com', '2022-02-22', 'Pinco'),
+    ('Nina Nera', '+34 912 765 324', 'rom@gm.com', '2022-03-12', 'Carlo');
+
+
+INSERT INTO employees(employeeName, employeeTelephone, employeeMail)
+VALUES
+    ('Pepe Pio', '+34 926 127 569', 'afd@df.com' ),
+    ('Pepa Mia', '+34 934 567 904', 'gfd@df.com' );
+
+
+INSERT INTO glasses(supplierId, clientId, employeeId, glassBrand, glassGradue, glassFrame, glassColorFrame, glassColorLens, price, whenSell)
+VALUES
+    (1, 1, 1, 'rasband', 0.2, 'Flotant', 'black', 'blue', 45.5, '2020-02-22'),
+    (1, 2, 2, 'armadi', 0.1, 'Metallica', 'brown', 'red', 82.5, '2021-03-12'),
+    (2, 1, 1, 'cuore', 0.3, 'Flotant', 'white', 'clear', 35.5, '2022-04-04'),
+    (1, 2, 2, 'rufus', 0.1, 'Pasta', 'green', 'yellow', 65.5, '2022-05-02'),
+    (2, 1, 2, 'valens', 0.2, 'Metallica', 'black', 'clear', 55.5, NOW());
+
+
 INSERT INTO addressPeople(supplierId, clientId, employeeId, street, num, floors, door, city, postalCode, country)
 VALUES
     (1, NULL, NULL, 'street1', '2a', '4', 3, 'Barcelona', '08001', 'Spain'),
@@ -97,26 +104,26 @@ VALUES
     (2, NULL, NULL, 'street5', '63','5', 2, 'Barcelona', '08032', 'Spain'),
     (NULL, 2, NULL, 'street6', '31','3', 6, 'Barcelona', '08231', 'Spain');
 
---El nostre sistema haurà d’indicar qui ha sigut l’empleat que ha venut cada ullera i quan.
+-- QUERY
+-- El nostre sistema haurà d’indicar qui ha sigut l’empleat que ha venut cada ullera i quan.
 SELECT employeeName, whenSell, glassBrand FROM employees
 INNER JOIN glasses
 ON employees.employeeId = glasses.employeeId;
 
---Llista el total de compres d'un client
+-- Llista el total de compres d'un client
 SELECT clientName, COUNT(glasses.clientId) AS 'Total compras' FROM clients
 INNER JOIN glasses
 ON clients.clientId = glasses.clientId
 GROUP BY clients.clientId; 
 
---Llista les diferents ulleres que ha venut un empleat durant un any
+-- Llista les diferents ulleres que ha venut un empleat durant un any
 SELECT employeeName, glassBrand, whenSell FROM employees
 INNER JOIN glasses
 ON employees.employeeId = glasses.employeeId
 WHERE glasses.whenSell LIKE '2022%';
 
---Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica
-SELECT supplierName FROM suppliers
+-- Llista els diferents proveïdors que han subministrat ulleres venudes amb èxit per l'òptica
+SELECT supplierName, glassBrand, whenSell FROM suppliers
 INNER JOIN glasses
-ON suppliers.supplierId = glasses.supplierId
-GROUP BY suppliers.supplierId; 
+ON suppliers.supplierId = glasses.supplierId; 
 
