@@ -18,7 +18,7 @@ CREATE TABLE clients (
     clientMail VARCHAR(16),
     clientDateRegister DATE,
     clientRecommendBy INT(5),
-    PRIMARY KEY(clientId)
+    PRIMARY KEY(clientId),
     FOREIGN KEY (clientRecommendBy) REFERENCES clients(clientId)
 );
 
