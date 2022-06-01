@@ -17,8 +17,9 @@ CREATE TABLE clients (
     clientTelephone VARCHAR(16),
     clientMail VARCHAR(16),
     clientDateRegister DATE,
-    clientRecommendBy VARCHAR(16),
+    clientRecommendBy INT(5),
     PRIMARY KEY(clientId)
+    FOREIGN KEY (clientRecommendBy) REFERENCES clients(clientId)
 );
 
 CREATE TABLE employees (
@@ -76,8 +77,8 @@ VALUES
 
 INSERT INTO clients(clientName, clientTelephone, clientMail, clientDateRegister, clientRecommendBy)
 VALUES
-    ('Nino Rota', '+34 926 127 569', 'fr@gm.com', '2022-02-22', 'Pinco'),
-    ('Nina Nera', '+34 912 765 324', 'rom@gm.com', '2022-03-12', 'Carlo');
+    ('Nino Rota', '+34 926 127 569', 'fr@gm.com', '2022-02-22', NULL),
+    ('Nina Nera', '+34 912 765 324', 'rom@gm.com', '2022-03-12', 1);
 
 
 INSERT INTO employees(employeeName, employeeTelephone, employeeMail)
