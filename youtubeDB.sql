@@ -8,7 +8,7 @@ CREATE TABLE users (
     userPassword VARCHAR(15),
     userName VARCHAR(15) UNIQUE,
     userBirth DATE,
-    userSex VARCHAR(10),
+    userSex ENUM('M','H'),
     userCountry VARCHAR(15),
     userZipCode VARCHAR(15),
     PRIMARY KEY(userId)
@@ -109,9 +109,9 @@ CREATE TABLE likeDislikeComments (
 
 INSERT INTO users (userMail, userPassword, userName, userBirth, userSex, userCountry, userZipCode)
 VALUES 
-    ('asd@sd.es', '123456', 'pinco', '2000-05-10', 'hombre', 'Italia', '24128'),
-    ('pd@sd.es', '123456', 'panca', '1990-07-10', 'mujer', 'España', '08001'),
-    ('od@sd.es', '123456', 'ponco', '1980-01-10', 'hombre', 'Italia', '30110');
+    ('asd@sd.es', '123456', 'pinco', '2000-05-10', 'H', 'Italia', '24128'),
+    ('pd@sd.es', '123456', 'panca', '1990-07-10', 'M', 'España', '08001'),
+    ('od@sd.es', '123456', 'ponco', '1980-01-10', 'H', 'Italia', '30110');
 
 
 INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduction, videoStatus, whenCreated)
