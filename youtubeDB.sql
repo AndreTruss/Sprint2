@@ -23,9 +23,7 @@ CREATE TABLE videos (
     videoFile VARCHAR(15),
     videoTime TIME,
     videoThumbnail BLOB,
-    videoReproduce INT(5),
-    videoLike INT(5) DEFAULT 0,
-    videoDislike INT(5) DEFAULT 0,
+    videoReproduction INT(5),
     videoStatus ENUM('public', 'hide', 'private'),
     whenCreated DATETIME,
     PRIMARY KEY(videoId),
@@ -72,8 +70,6 @@ CREATE TABLE comments (
     userId INT(5) NOT NULL,
     commentText TEXT,
     commentDate DATETIME,
-    commentLike INT(5) DEFAULT 0,
-    commentDislike INT(5) DEFAULT 0,
     PRIMARY KEY(commentId),
     FOREIGN KEY(videoId) REFERENCES videos(videoId),
     FOREIGN KEY(userId) REFERENCES users(userId)
@@ -106,20 +102,8 @@ CREATE TABLE likeDislikeComments (
     FOREIGN KEY(userId) REFERENCES users(userId),
     UNIQUE INDEX (commentId, userId)
 );
-/* DELIMITER $$
 
-CREATE TRIGGER after_members_insert
-AFTER INSERT
-ON likeDislikeVideo FOR EACH ROW
-BEGIN
-    IF NEW.likeDislike LIKE 'like' THEN
-        UPDATE videos SET
-        videoLike = videoLike + 1
-        WHERE videos.videoId = 3;
-    END IF;
-END$$
 
-DELIMITER ; */
 
 -- INSERT INTO
 
@@ -130,11 +114,11 @@ VALUES
     ('od@sd.es', '123456', 'ponco', '1980-01-10', 'hombre', 'Italia', '30110');
 
 
-INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduce, videoStatus, whenCreated)
+INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduction, videoStatus, whenCreated)
 VALUES (1, 'js example', 'leccion js', '110', 'leccionjs.avi', '00:30:10', LOAD_FILE('/img/img.png'), 50, 'public', NOW());
-INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduce, videoStatus, whenCreated)
+INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduction, videoStatus, whenCreated)
 VALUES (1, 'node example', 'leccion node', '105', 'leccionNode.avi', '00:25:40', LOAD_FILE('/img/img.png'), 40, 'public', NOW());
-INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduce, videoStatus, whenCreated)
+INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduction, videoStatus, whenCreated)
 VALUES (2, 'Mis gatos', 'jugando con gatos', '80', 'gatos.mp4', '00:15:30', LOAD_FILE('/img/img.png'), 80, 'public', NOW());
 
 
@@ -163,13 +147,9 @@ VALUES (1, 3);
 INSERT INTO likeDislikeVideos (videoId, userId, likeDislike, likeDate)
 VALUES (3, 3, 'like', NOW());
 
-UPDATE videos SET videoLike = videoLike + 1 WHERE videoId = 3;
-
 
 INSERT INTO likeDislikeComments (commentId, userId, likeDislike, likeDate)
 VALUES (1, 2, 'like', NOW());
-
-UPDATE comments SET commentLike = commentLike + 1 WHERE commentId = 1;
 
 
 -- QUERY

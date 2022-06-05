@@ -73,10 +73,8 @@ CREATE TABLE drinks (
 ); */
 
 CREATE TABLE categoryPizzas (
-	categoryId INT(5) NOT NULL AUTO_INCREMENT,
     categoryName VARCHAR(30) NOT NULL,
     productId INT(5) UNIQUE,  -- Una pizza només pot estar dins d'una categoria, però una categoria pot tenir moltes pizzes.
-    PRIMARY KEY(categoryId),
     FOREIGN KEY (productId) REFERENCES products(productId)
 );
 
@@ -99,11 +97,9 @@ CREATE TABLE orderMenu (
 );
 
 CREATE TABLE orderDelivery (
-    orderDeliveryId INT(5) NOT NULL AUTO_INCREMENT,
     orderDeliveryTime DATETIME,
     employeeId INT(5),
     orderId INT(5),
-    PRIMARY KEY(orderDeliveryId),
     FOREIGN KEY (employeeId) REFERENCES employees(employeeId),
     FOREIGN KEY (orderId) REFERENCES orders(orderId)
 );
