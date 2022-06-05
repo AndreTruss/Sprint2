@@ -54,14 +54,19 @@ CREATE TABLE channels (
 
 CREATE TABLE playlists (
     playlistId INT(5) NOT NULL AUTO_INCREMENT,
-    videoId INT(5) NOT NULL,
     userId INT(5) NOT NULL,
     playlistName VARCHAR(30),
     playlistDate DATE,
     playlistStatus ENUM('public', 'private'),
     PRIMARY KEY(playlistId),
-    FOREIGN KEY(videoId) REFERENCES videos(videoId),
     FOREIGN KEY(userId) REFERENCES users(userId)
+);
+
+CREATE TABLE add_video_playlists (
+    playlistId INT(5) NOT NULL,
+    videoId INT(5) NOT NULL,
+    FOREIGN KEY(playlistId) REFERENCES playlists(playlistId),
+    FOREIGN KEY(videoId) REFERENCES videos(videoId)
 );
 
 CREATE TABLE comments (
@@ -132,8 +137,18 @@ INSERT INTO channels (videoId, userId, channelName, channelDescription, channelD
 VALUES (3, 2, 'Mis Videos', 'Mis nuevos videos', NOW());
 
 
-INSERT INTO playlists (videoId, userId, playlistName, playlistDate, playlistStatus)
-VALUES (3, 3, 'Videos preferidos', NOW(), 'public');
+INSERT INTO playlists (userId, playlistName, playlistDate, playlistStatus)
+VALUES (3, 'Videos preferidos', NOW(), 'public');
+INSERT INTO playlists (userId, playlistName, playlistDate, playlistStatus)
+VALUES (1, 'JS Lessons', NOW(), 'public');
+
+
+INSERT INTO add_video_playlists (playlistId, videoId)
+VALUES (1, 3);
+INSERT INTO add_video_playlists (playlistId, videoId)
+VALUES 
+    (2, 1),
+    (2, 2);
 
 
 INSERT INTO comments (videoId, userId, commentText, commentDate)
