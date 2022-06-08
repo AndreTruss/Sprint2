@@ -1,0 +1,6 @@
+// QUERY
+// El nostre sistema haurà d’indicar qui ha sigut l’empleat que ha venut cada ullera i quan.
+
+use("opticaDB");
+db.glasses.find({},{employee_id: 1, brand: 1, whenSell: 1, _id: 0}).sort({employee_id: 1});
+
