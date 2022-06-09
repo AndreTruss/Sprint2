@@ -66,7 +66,7 @@ CREATE TABLE want_eliminate_playlists (
 CREATE TABLE artists (
     id_artist INT(5) NOT NULL AUTO_INCREMENT,
     name_artist VARCHAR(25) NOT NULL,
-    img_artist BLOB,
+    img_artist VARCHAR(255),
     PRIMARY KEY(id_artist)
 );
 
@@ -82,7 +82,7 @@ CREATE TABLE albums (
     id_artist INT(5) NOT NULL,
     title_album VARCHAR(25) NOT NULL,
     year_pubblication YEAR,
-    img_album BLOB,
+    img_album VARCHAR(255),
     PRIMARY KEY(id_album),
     FOREIGN KEY(id_artist) REFERENCES artists(id_artist)
 );
@@ -165,9 +165,9 @@ UPDATE playlists SET playlists.status_playlist = 'eliminated' WHERE playlists.id
 
 INSERT INTO artists (name_artist, img_artist)
 VALUES
-	('A. Mozart', LOAD_FILE('/img/img.png')),
-    ('J.S. Bach', LOAD_FILE('/img/img.png')),
-    ('A. Vivaldi', LOAD_FILE('/img/img.png'));
+	('A. Mozart', './img/img.jpg'),
+    ('J.S. Bach', './img/img.jpg'),
+    ('A. Vivaldi', './img/img.jpg');
 
 
 INSERT INTO related_artists (id_artist1, id_artist2)
@@ -179,9 +179,9 @@ VALUES
 
 INSERT INTO albums (id_artist, title_album, year_pubblication, img_album)
 VALUES
-	(1, 'Todo Mozart', 1980, LOAD_FILE('/img/img.png')),
-    (1, 'Playing Mozart', 2010, LOAD_FILE('/img/img.png')),
-    (2, 'Todo Bach', 1990, LOAD_FILE('/img/img.png'));
+	(1, 'Todo Mozart', 1980, './img/img.jpg'),
+    (1, 'Playing Mozart', 2010, './img/img.jpg'),
+    (2, 'Todo Bach', 1990, './img/img.jpg');
     
     
 INSERT INTO songs (id_album, title_song, duration_song, number_reproduction_song)

@@ -1,16 +1,26 @@
 // QUERY
 // El nostre sistema haurà d’indicar qui ha sigut l’empleat que ha venut cada ullera i quan.
 
-use("opticaDB");
+use("optica");
 
-db.glasses.aggregate([{
+db.glasses.aggregate([
+    {
     $lookup: {
             from: "employees",
             localField: "employee_id",
             foreignField: "_id",
             as: "employee"
         }
-}])
+    },
+    {
+    $project: {
+        name: "$employee.name",
+        brand: 1,
+        whenSell: 1,
+        _id: 0 
+    }  
+    }
+]).sort({ "name": 1});
 
-db.glasses.find({},{employee.name: 1, brand: 1, whenSell: 1, _id: 0}).sort({employee_id: 1});
+//db.glasses.find({},{employee: 1, brand: 1, whenSell: 1, _id: 0}).sort({employee_id: 1});
 

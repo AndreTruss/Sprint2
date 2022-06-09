@@ -52,7 +52,7 @@ CREATE TABLE products (
     productId INT(5) NOT NULL,
     productName VARCHAR(30) NOT NULL,
     productDescription VARCHAR(50),
-    productImage BLOB,
+    productImage VARCHAR(255),
     price FLOAT,
     PRIMARY KEY(productId)
 );
@@ -154,12 +154,12 @@ VALUES
 
 INSERT INTO products(productId, productName, productDescription, productImage, price)
 VALUES
-    (100, 'Pizza Margherita', 'tomate, mozzarella, albahaja', LOAD_FILE('/img/img.jpg'), 7.5),
-    (101, 'Pizza 4 quesos', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10),
-    (200, 'Hamburger clasico', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10),
-    (201, 'Hamburger con queso', 'tomate, mozzarella, fontina, grana, gorgonzola', LOAD_FILE('/image_path/image_fileName.png'), 10),
-    (300, 'Wine', 'White, Penedes 2016', LOAD_FILE('/image_path/image_fileName.png'), 8),
-    (301, 'Water', 'Bezoya', LOAD_FILE('/image_path/image_fileName.png'), 1.5);
+    (100, 'Pizza Margherita', 'tomate, mozzarella, albahaja', './img/img.jpg', 7.5),
+    (101, 'Pizza 4 quesos', 'tomate, mozzarella, fontina, grana, gorgonzola', './img/img.jpg', 10),
+    (200, 'Hamburger clasico', 'tomate, mozzarella, fontina, grana, gorgonzola', './img/img.jpg', 10),
+    (201, 'Hamburger con queso', 'tomate, mozzarella, fontina, grana, gorgonzola', './img/img.jpg', 10),
+    (300, 'Wine', 'White, Penedes 2016', './img/img.jpg', 8),
+    (301, 'Water', 'Bezoya', './img/img.jpg', 1.5);
 
 
 INSERT INTO categoryPizzas (categoryName, productId)

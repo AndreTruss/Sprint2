@@ -22,7 +22,7 @@ CREATE TABLE videos (
     videoMb INT(5),
     videoFile VARCHAR(15),
     videoTime TIME,
-    videoThumbnail BLOB,
+    videoThumbnail VARCHAR(255),
     videoReproduction INT(5),
     videoStatus ENUM('public', 'hide', 'private'),
     whenCreated DATETIME,
@@ -120,11 +120,11 @@ VALUES
 
 
 INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduction, videoStatus, whenCreated)
-VALUES (1, 'js example', 'leccion js', '110', 'leccionjs.avi', '00:30:10', LOAD_FILE('/img/img.png'), 50, 'public', NOW());
+VALUES (1, 'js example', 'leccion js', '110', 'leccionjs.avi', '00:30:10', './img/img.png', 50, 'public', NOW());
 INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduction, videoStatus, whenCreated)
-VALUES (1, 'node example', 'leccion node', '105', 'leccionNode.avi', '00:25:40', LOAD_FILE('/img/img.png'), 40, 'public', NOW());
+VALUES (1, 'node example', 'leccion node', '105', 'leccionNode.avi', '00:25:40', './img/img.png', 40, 'public', NOW());
 INSERT INTO videos (userId, videoTitle, videoDescription, videoMb, videoFile, videoTime, videoThumbnail, videoReproduction, videoStatus, whenCreated)
-VALUES (2, 'Mis gatos', 'jugando con gatos', '80', 'gatos.mp4', '00:15:30', LOAD_FILE('/img/img.png'), 80, 'public', NOW());
+VALUES (2, 'Mis gatos', 'jugando con gatos', '80', 'gatos.mp4', '00:15:30', './img/img.png', 80, 'public', NOW());
 
 
 INSERT INTO tickets (videoId, userId, ticketName)
