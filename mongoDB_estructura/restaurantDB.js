@@ -1,8 +1,8 @@
-db.clients.drop();
+db.dropDatabase();
 
 db.clients.insertMany([ 
     {
-        _id: 'Nino',
+        client_id: 'Nino',
         name: 'Nino',
         surname: 'Rota',
         address: 'c/ de la pedra, 6',
@@ -11,7 +11,7 @@ db.clients.insertMany([
         telephone: '+34 926 127 569' 
     },
     { 
-        _id: 'Nina',
+        client_id: 'Nina',
         name: 'Nina',
         surname: 'Nera',
         address: 'c/ del papel, 53',
@@ -21,18 +21,17 @@ db.clients.insertMany([
     }
 ]);
 
-db.employees_shop.drop();
 
 db.employees_shop.insertMany([ 
     {
-        _id: 1,
+        shop_id: 1,
         address: 'av. Roma, 140',
         zipcode: '12345',
         localidad: 'Barcelona',
         provincia: 'Barcelona'
     },
     {
-        _id: 2,
+        shop_id: 2,
         address: 'c/ Marina, 67',
         zipcode: '45678',
         localidad: 'Gerona',
@@ -40,7 +39,7 @@ db.employees_shop.insertMany([
     },
 
     {
-        _id: 'Pepe',
+        employee_id: 'Pepe',
         name: 'Pepe',
         surname: 'Pio',
         NIF: '34856404K',
@@ -49,7 +48,7 @@ db.employees_shop.insertMany([
         shop_id: 1 
     },
     {
-        _id: 'Ava',
+        employee_id: 'Ava',
         name: 'Ava',
         surname: 'Farina',
         NIF: '34856404K',
@@ -58,7 +57,7 @@ db.employees_shop.insertMany([
         shop_id: 2 
     },
     {
-        _id: 'Isolda',
+        employee_id: 'Isolda',
         name: 'Isolda',
         surname: 'Nero',
         NIF: '34856404K',
@@ -67,7 +66,7 @@ db.employees_shop.insertMany([
         shop_id: 1 
     },
     {
-        _id: 'Alex',
+        employee_id: 'Alex',
         name: 'Alex',
         surname: 'Zana',
         NIF: '74216404K',
@@ -77,11 +76,11 @@ db.employees_shop.insertMany([
     }
 ]);
 
-db.products_orders.drop();
+
 
 db.products_orders.insertMany([
     {
-        _id: 100,
+        product_id: 100,
         name: 'Pizza Margherita',
         description: 'tomate, mozzarella, albahaja',
         image: './img/img.jpg',
@@ -89,7 +88,7 @@ db.products_orders.insertMany([
         category: 'Category Mare' 
     },
     {
-        _id: 101,
+        product_id: 101,
         name: 'Pizza 4 quesos',
         description: 'tomate, mozzarella, fontina, grana, gorgonzola',
         image: './img/img.jpg',
@@ -97,28 +96,28 @@ db.products_orders.insertMany([
         category: 'Category Montaña' 
     },
     {
-        _id: 200,
+        product_id: 200,
         name: 'Hamburger clasico',
         description: 'tomate, mozzarella, ternera 200gr',
         image: './img/img.jpg',
         price: 8
     },
     {
-        _id: 201,
+        product_id: 201,
         name: 'Hamburger con queso',
         description: 'tomate, fontina, ternera 200gr',
         image: './img/img.jpg',
         price: 9
     },
     {
-        _id: 300,
+        product_id: 300,
         name: 'wine',
         description: 'White, Penedes 2016',
         image: './img/img.jpg',
         price: 8
     },
     {
-        _id: 301,
+        product_id: 301,
         name: 'water',
         description: 'Bezoya',
         image: './img/img.jpg',
@@ -126,7 +125,7 @@ db.products_orders.insertMany([
     },
 
     {
-        _id: 1,
+        order_id: 1,
         date: new ISODate('2022-06-07T12:20:00Z'),
         delivery: 'home',
         client_id: 'Nino',
@@ -135,7 +134,7 @@ db.products_orders.insertMany([
         date_delivery: new ISODate('2022-06-07T12:22:00Z') 
     },
     {
-        _id: 2,
+        order_id: 2,
         date: new ISODate('2022-06-07T12:30:00Z'),
         delivery: 'home',
         client_id: 'Nino',
@@ -144,7 +143,7 @@ db.products_orders.insertMany([
         date_delivery: new ISODate('2022-06-07T12:32:00Z') 
     },
     {
-        _id: 3,
+        order_id: 3,
         date: new ISODate('2022-06-07T12:40:00Z'),
         delivery: 'shop',
         client_id: 'Nina',

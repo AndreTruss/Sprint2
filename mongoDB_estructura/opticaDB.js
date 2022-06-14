@@ -1,8 +1,8 @@
-db.suppliers.drop()
+db.dropDatabase();
 
 db.suppliers.insertMany([ 
     {
-        _id: 'Pinco',
+        supplier_id: 'Pinco',
         name: 'Pinco Pallino',
         telephone: '+34 926 123 456', 
         fax: '+34 678 567 567', 
@@ -18,7 +18,7 @@ db.suppliers.insertMany([
         } 
     },
     { 
-        _id: 'Dibo',
+        supplier_id: 'Dibo',
         name: 'DiboDabo',
         telephone: '+34 865 987 234', 
         fax: '+34 865 987 234', 
@@ -35,11 +35,11 @@ db.suppliers.insertMany([
     }
 ]);
 
-db.clients.drop();
+
 
 db.clients.insertMany([ 
     {
-        _id: 'Nino',
+        client_id: 'Nino',
         name: 'Nino Rota',
         telephone: '+34 926 127 569', 
         mail: 'fr@gm.com', 
@@ -56,7 +56,7 @@ db.clients.insertMany([
         } 
     },
     { 
-        _id: 'Nina',
+        client_id: 'Nina',
         name: 'Nina Nera',
         telephone: '+34 912 765 324', 
         mail: 'rom@gm.com', 
@@ -74,11 +74,11 @@ db.clients.insertMany([
     }
 ]);
 
-db.employees.drop()
+
 
 db.employees.insertMany([ 
     {
-        _id: 'Pepe',
+        employee_id: 'Pepe',
         name: 'Pepe Pio',
         telephone: '+34 926 127 569', 
         mail: 'pepe@gm.com',
@@ -93,7 +93,7 @@ db.employees.insertMany([
         } 
     },
     { 
-        _id: 'Pepa',
+        employee_id: 'Pepa',
         name: 'Pepa Mia',
         telephone: '+34 934 567 904', 
         mail: 'pepa@gm.com',
@@ -109,11 +109,11 @@ db.employees.insertMany([
     }
 ]);
 
-db.glasses.drop()
+
 
 db.glasses.insertMany([ 
     {
-        _id: 1,
+        glass_id: 1,
         supplier_id: 'Pinco',
         client_id: 'Nino', 
         employee_id: 'Pepe',
@@ -126,7 +126,7 @@ db.glasses.insertMany([
         whenSell: new ISODate('2020-02-22')
     },
     { 
-        _id: 2,
+        glass_id: 2,
         supplier_id: 'Pinco',
         client_id: 'Nina', 
         employee_id: 'Pepa',
@@ -139,7 +139,7 @@ db.glasses.insertMany([
         whenSell: new ISODate('2021-03-12')
     },
     { 
-        _id: 3,
+        glass_id: 3,
         supplier_id: 'Dibo',
         client_id: 'Nino', 
         employee_id: 'Pepe',
@@ -152,7 +152,7 @@ db.glasses.insertMany([
         whenSell: new ISODate('2022-04-14')
     },
     { 
-        _id: 4,
+        glass_id: 4,
         supplier_id: 'Pinco',
         client_id: 'Nina', 
         employee_id: 'Pepa',
@@ -165,7 +165,7 @@ db.glasses.insertMany([
         whenSell: new ISODate('2022-05-02')
     },
     { 
-        _id: 5,
+        glass_id: 5,
         supplier_id: 'Dibo',
         client_id: 'Nino', 
         employee_id: 'Pepa',
