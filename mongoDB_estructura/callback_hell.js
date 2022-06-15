@@ -33,29 +33,35 @@ const reverseText = str =>
 
 
 const promiseReadDir = (inbox) => {
-  return new Promise((resolve, reject) => {
-    inbox
-      ? resolve(readdir(inbox))
-      : reject(new Error ("Error: Folder inaccessible"))
+  return new Promise((resolve, reject) => { 
+    readdir(inbox, (error, files) => {
+      error
+      ? reject(new Error ("Error: Folder inaccessible"))
+      : resolve(files)
     });
+  })
 }
 
 const promiseReadFile = (inbox, file) => {
   return new Promise((resolve, reject) => {
-    file
-      ? resolve(readFile( join(inbox, file), "utf8"))
-      : reject(new Error ("Error: File error"))
+    readFile(join(inbox, file), "utf8", (error, data) => {
+      return error
+      ? reject(new Error ("Error: File error"))
+      : resolve(data)
     }); 
+  })
 }
 
 const promiseWriteFile = (outbox, file, data) => {
   return new Promise((resolve, reject) => {
-    data
-      ? resolve(writeFile( join(outbox, file), reverseText(data)))
-      : reject(new Error ("Error: File could not be saved!"))
+    writeFile(join(outbox, file), reverseText(data), error => {
+      return error
+      ? reject(new Error ("Error: File could not be saved!"))
+      : resolve(`${file} was successfully saved in the outbox!`)
       });
-  }
-  
+    })
+}
+
   async function result(inbox, outbox) { 
     let files = await promiseReadDir(inbox);
     files.forEach(file => {
@@ -64,4 +70,4 @@ const promiseWriteFile = (outbox, file, data) => {
     })
   }
 
-  result(inbox, outbox)
+  console.log (promiseReadDir(inbox))
