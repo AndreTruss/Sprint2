@@ -35,47 +35,6 @@ db.suppliers.insertMany([
     }
 ]);
 
-
-
-db.clients.insertMany([ 
-    {
-        client_id: 'Nino',
-        name: 'Nino Rota',
-        telephone: '+34 926 127 569', 
-        mail: 'fr@gm.com', 
-        dateRegister: new ISODate('2022-02-22'),
-        recommendedBy: null,
-        address: {
-            street: 'c/ de la pedra',
-            number: 143,
-            floor: '1º',
-            door: '5ª',
-            city: 'Mongat',
-            zipcode: '08123',
-            country: 'Spain'
-        } 
-    },
-    { 
-        client_id: 'Nina',
-        name: 'Nina Nera',
-        telephone: '+34 912 765 324', 
-        mail: 'rom@gm.com', 
-        dateRegister: new ISODate('2022-03-12'),
-        recommendedBy: 'Nino Rota',
-        address: {
-            street: 'c/ del papel',
-            number: 53,
-            floor: 'atico',
-            door: '1ª',
-            city: 'Barcelona',
-            zipcode: '08001',
-            country: 'Spain'
-        } 
-    }
-]);
-
-
-
 db.employees.insertMany([ 
     {
         employee_id: 'Pepe',
@@ -109,73 +68,89 @@ db.employees.insertMany([
     }
 ]);
 
-
-
-db.glasses.insertMany([ 
+db.clients.insertMany([ 
     {
-        glass_id: 1,
-        supplier_id: 'Pinco',
-        client_id: 'Nino', 
-        employee_id: 'Pepe',
-        brand: 'rasband',
-        gradue: 0.2,
-        frame: 'Metallica',
-        colorFrame: 'black',
-        colorLens: 'blue',
-        price: 45.5,
-        whenSell: new ISODate('2020-02-22')
+        client_id: 'Nino',
+        name: 'Nino Rota',
+        telephone: '+34 926 127 569', 
+        mail: 'fr@gm.com', 
+        dateRegister: new ISODate('2022-02-22'),
+        recommendedBy: null,
+        address: {
+            street: 'c/ de la pedra',
+            number: 143,
+            floor: '1º',
+            door: '5ª',
+            city: 'Mongat',
+            zipcode: '08123',
+            country: 'Spain'
+        },
+        glasses: [{
+            glass_id: 1,
+            supplier_id: 'Pinco', 
+            employee_id: 'Pepe',
+            brand: 'rasband',
+            gradue: 0.2,
+            frame: 'Metallica',
+            colorFrame: 'black',
+            colorLens: 'blue',
+            price: 45.5,
+            whenSell: new ISODate('2020-02-22')
+        }, 
+        { 
+            glass_id: 2,
+            supplier_id: 'Dibo',
+            employee_id: 'Pepe',
+            brand: 'cuore',
+            gradue: 0.2,
+            frame: 'Pasta',
+            colorFrame: 'white',
+            colorLens: 'clear',
+            price: 35.5,
+            whenSell: new ISODate('2022-04-14')
+        }]
     },
     { 
-        glass_id: 2,
-        supplier_id: 'Pinco',
-        client_id: 'Nina', 
-        employee_id: 'Pepa',
-        brand: 'armadi',
-        gradue: 0.1,
-        frame: 'Flotant',
-        colorFrame: 'brown',
-        colorLens: 'red',
-        price: 82.5,
-        whenSell: new ISODate('2021-03-12')
-    },
-    { 
-        glass_id: 3,
-        supplier_id: 'Dibo',
-        client_id: 'Nino', 
-        employee_id: 'Pepe',
-        brand: 'cuore',
-        gradue: 0.2,
-        frame: 'Pasta',
-        colorFrame: 'white',
-        colorLens: 'clear',
-        price: 35.5,
-        whenSell: new ISODate('2022-04-14')
-    },
-    { 
-        glass_id: 4,
-        supplier_id: 'Pinco',
-        client_id: 'Nina', 
-        employee_id: 'Pepa',
-        brand: 'rufus',
-        gradue: 0.2,
-        frame: 'Metallica',
-        colorFrame: 'green',
-        colorLens: 'yellow',
-        price: 65.5,
-        whenSell: new ISODate('2022-05-02')
-    },
-    { 
-        glass_id: 5,
-        supplier_id: 'Dibo',
-        client_id: 'Nino', 
-        employee_id: 'Pepa',
-        brand: 'valens',
-        gradue: 0.1,
-        frame:'Flotant',
-        colorFrame: 'black',
-        colorLens: 'clear',
-        price: 52.5,
-        whenSell: new ISODate('2022-06-22')
+        client_id: 'Nina',
+        name: 'Nina Nera',
+        telephone: '+34 912 765 324', 
+        mail: 'rom@gm.com', 
+        dateRegister: new ISODate('2022-03-12'),
+        recommendedBy: 'Nino Rota',
+        address: {
+            street: 'c/ del papel',
+            number: 53,
+            floor: 'atico',
+            door: '1ª',
+            city: 'Barcelona',
+            zipcode: '08001',
+            country: 'Spain'
+        },
+        glasses: [{ 
+            glass_id: 3,
+            supplier_id: 'Pinco',
+            employee_id: 'Pepa',
+            brand: 'armadi',
+            gradue: 0.1,
+            frame: 'Flotant',
+            colorFrame: 'brown',
+            colorLens: 'red',
+            price: 82.5,
+            whenSell: new ISODate('2021-03-12')
+        },
+        { 
+            glass_id: 4,
+            supplier_id: 'Pinco',
+            employee_id: 'Pepa',
+            brand: 'rufus',
+            gradue: 0.2,
+            frame: 'Metallica',
+            colorFrame: 'green',
+            colorLens: 'yellow',
+            price: 65.5,
+            whenSell: new ISODate('2022-05-02')
+        }] 
     }
 ]);
+
 

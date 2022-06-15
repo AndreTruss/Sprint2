@@ -1,84 +1,6 @@
 db.dropDatabase();
 
-db.clients.insertMany([ 
-    {
-        client_id: 'Nino',
-        name: 'Nino',
-        surname: 'Rota',
-        address: 'c/ de la pedra, 6',
-        localidad: 'Montgat',
-        provincia: 'Barcelona',
-        telephone: '+34 926 127 569' 
-    },
-    { 
-        client_id: 'Nina',
-        name: 'Nina',
-        surname: 'Nera',
-        address: 'c/ del papel, 53',
-        localidad: 'Palamós',
-        provincia: 'Gerona',
-        telephone: '+34 912 765 324'
-    }
-]);
-
-
-db.employees_shop.insertMany([ 
-    {
-        shop_id: 1,
-        address: 'av. Roma, 140',
-        zipcode: '12345',
-        localidad: 'Barcelona',
-        provincia: 'Barcelona'
-    },
-    {
-        shop_id: 2,
-        address: 'c/ Marina, 67',
-        zipcode: '45678',
-        localidad: 'Gerona',
-        provincia: 'Gerona'
-    },
-
-    {
-        employee_id: 'Pepe',
-        name: 'Pepe',
-        surname: 'Pio',
-        NIF: '34856404K',
-        rule: 'Cuiner',
-        telephone: '+34 926 127 569', 
-        shop_id: 1 
-    },
-    {
-        employee_id: 'Ava',
-        name: 'Ava',
-        surname: 'Farina',
-        NIF: '34856404K',
-        rule: 'Cuiner',
-        telephone: '+34 678 854 023', 
-        shop_id: 2 
-    },
-    {
-        employee_id: 'Isolda',
-        name: 'Isolda',
-        surname: 'Nero',
-        NIF: '34856404K',
-        rule: 'Repartidor',
-        telephone: '+34 678 854 023', 
-        shop_id: 1 
-    },
-    {
-        employee_id: 'Alex',
-        name: 'Alex',
-        surname: 'Zana',
-        NIF: '74216404K',
-        rule: 'Repartidor',
-        telephone: '+34 478 254 923', 
-        shop_id: 2 
-    }
-]);
-
-
-
-db.products_orders.insertMany([
+db.products.insertMany([
     {
         product_id: 100,
         name: 'Pizza Margherita',
@@ -122,32 +44,103 @@ db.products_orders.insertMany([
         description: 'Bezoya',
         image: './img/img.jpg',
         price: 1.5
-    },
-
-    {
-        order_id: 1,
-        date: new ISODate('2022-06-07T12:20:00Z'),
-        delivery: 'home',
-        client_id: 'Nino',
-        shop_id: 1,
-        product_id: [100, 200],
-        date_delivery: new ISODate('2022-06-07T12:22:00Z') 
-    },
-    {
-        order_id: 2,
-        date: new ISODate('2022-06-07T12:30:00Z'),
-        delivery: 'home',
-        client_id: 'Nino',
-        shop_id: 1,
-        product_id: [300],
-        date_delivery: new ISODate('2022-06-07T12:32:00Z') 
-    },
-    {
-        order_id: 3,
-        date: new ISODate('2022-06-07T12:40:00Z'),
-        delivery: 'shop',
-        client_id: 'Nina',
-        shop_id: 2,
-        product_id: [100, 101, 201, 301]
     }
 ]);
+
+
+db.clients_orders.insertMany([ 
+    {
+        client_id: 'Nino',
+        name: 'Nino',
+        surname: 'Rota',
+        address: 'c/ de la pedra, 6',
+        localidad: 'Montgat',
+        provincia: 'Barcelona',
+        telephone: '+34 926 127 569', 
+        orders: [{
+            order_id: 1,
+            date: new ISODate('2022-06-07T12:20:00Z'),
+            delivery: 'home',
+            shop_id: 1,
+            product_id: [100, 200],
+            date_delivery: new ISODate('2022-06-07T12:22:00Z') 
+        },
+        {
+            order_id: 2,
+            date: new ISODate('2022-06-07T12:30:00Z'),
+            delivery: 'home',
+            shop_id: 1,
+            product_id: [300],
+            date_delivery: new ISODate('2022-06-07T12:32:00Z') 
+        }]
+    },
+    { 
+        client_id: 'Nina',
+        name: 'Nina',
+        surname: 'Nera',
+        address: 'c/ del papel, 53',
+        localidad: 'Palamós',
+        provincia: 'Gerona',
+        telephone: '+34 912 765 324',
+        orders: {
+            order_id: 3,
+            date: new ISODate('2022-06-07T12:40:00Z'),
+            delivery: 'shop',
+            shop_id: 2,
+            product_id: [100, 101, 201, 301]
+        }
+    }
+]);
+
+
+db.employees_shop.insertMany([ 
+    {
+        shop_id: 1,
+        address: 'av. Roma, 140',
+        zipcode: '12345',
+        localidad: 'Barcelona',
+        provincia: 'Barcelona',
+        employees:[{
+            employee_id: 'Pepe',
+            name: 'Pepe',
+            surname: 'Pio',
+            NIF: '34856404K',
+            rule: 'Cuiner',
+            telephone: '+34 926 127 569'
+        },
+        {
+            employee_id: 'Isolda',
+            name: 'Isolda',
+            surname: 'Nero',
+            NIF: '34856404K',
+            rule: 'Repartidor',
+            telephone: '+34 678 854 023' 
+        }]
+    },
+    {
+        shop_id: 2,
+        address: 'c/ Marina, 67',
+        zipcode: '45678',
+        localidad: 'Gerona',
+        provincia: 'Gerona',
+        employees: [{
+            employee_id: 'Ava',
+            name: 'Ava',
+            surname: 'Farina',
+            NIF: '34856404K',
+            rule: 'Cuiner',
+            telephone: '+34 678 854 023'  
+        },
+        {
+            employee_id: 'Alex',
+            name: 'Alex',
+            surname: 'Zana',
+            NIF: '74216404K',
+            rule: 'Repartidor',
+            telephone: '+34 478 254 923'
+        }]
+    }  
+]);
+
+
+
