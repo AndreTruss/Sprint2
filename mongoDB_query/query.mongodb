@@ -1,26 +1,4 @@
 // QUERY
-// El nostre sistema haurà d’indicar qui ha sigut l’empleat que ha venut cada ullera i quan.
-
-/* use("optica");
-
-db.glasses.aggregate([
-    {
-    $lookup: {
-            from: "employees",
-            localField: "employee_id",
-            foreignField: "_id",
-            as: "employee"
-        }
-    },
-    {
-    $project: {
-        name: "$employee.name",
-        brand: 1,
-        whenSell: 1,
-        _id: 0 
-    }  
-    }
-]).sort({ "name": 1}); */
 
 
 use("restaurantsDB");
@@ -119,3 +97,29 @@ use("restaurantsDB");
 
 
 //db.restaurants.find( {name: {$regex: /^Mad/} },{name: 1, borough: 1, "address.coord": 1, cuisine: 1, _id: 0});
+
+
+
+// QUERY prueba opticaDB
+// El nostre sistema haurà d’indicar qui ha sigut l’empleat que ha venut cada ullera i quan.
+
+/* use("opticaDB");
+
+db.clients_glasses.aggregate([
+    {
+    $lookup: {
+            from: "employees",
+            localField: "employee_id",
+            foreignField: "employee_id",
+            as: "employee"
+        }
+    },
+    {
+    $project: {
+        name: "$employee.name",
+        brand: 1,
+        whenSell: 1,
+        _id: 0 
+    }  
+    }
+]).sort({ "name": 1}); */

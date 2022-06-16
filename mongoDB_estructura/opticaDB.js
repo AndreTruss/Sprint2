@@ -68,7 +68,7 @@ db.employees.insertMany([
     }
 ]);
 
-db.clients.insertMany([ 
+db.clients_glasses.insertMany([ 
     {
         client_id: 'Nino',
         name: 'Nino Rota',
@@ -84,31 +84,7 @@ db.clients.insertMany([
             city: 'Mongat',
             zipcode: '08123',
             country: 'Spain'
-        },
-        glasses: [{
-            glass_id: 1,
-            supplier_id: 'Pinco', 
-            employee_id: 'Pepe',
-            brand: 'rasband',
-            gradue: 0.2,
-            frame: 'Metallica',
-            colorFrame: 'black',
-            colorLens: 'blue',
-            price: 45.5,
-            whenSell: new ISODate('2020-02-22')
-        }, 
-        { 
-            glass_id: 2,
-            supplier_id: 'Dibo',
-            employee_id: 'Pepe',
-            brand: 'cuore',
-            gradue: 0.2,
-            frame: 'Pasta',
-            colorFrame: 'white',
-            colorLens: 'clear',
-            price: 35.5,
-            whenSell: new ISODate('2022-04-14')
-        }]
+        }
     },
     { 
         client_id: 'Nina',
@@ -125,31 +101,59 @@ db.clients.insertMany([
             city: 'Barcelona',
             zipcode: '08001',
             country: 'Spain'
-        },
-        glasses: [{ 
-            glass_id: 3,
-            supplier_id: 'Pinco',
-            employee_id: 'Pepa',
-            brand: 'armadi',
-            gradue: 0.1,
-            frame: 'Flotant',
-            colorFrame: 'brown',
-            colorLens: 'red',
-            price: 82.5,
-            whenSell: new ISODate('2021-03-12')
-        },
-        { 
-            glass_id: 4,
-            supplier_id: 'Pinco',
-            employee_id: 'Pepa',
-            brand: 'rufus',
-            gradue: 0.2,
-            frame: 'Metallica',
-            colorFrame: 'green',
-            colorLens: 'yellow',
-            price: 65.5,
-            whenSell: new ISODate('2022-05-02')
-        }] 
+        }
+    },
+    {
+        glass_id: 1,
+        client_id: 'Nino',
+        supplier_id: 'Pinco', 
+        employee_id: 'Pepe',
+        brand: 'rasband',
+        gradue: 0.2,
+        frame: 'Metallica',
+        colorFrame: 'black',
+        colorLens: 'blue',
+        price: 45.5,
+        whenSell: new ISODate('2020-02-22')
+    }, 
+    { 
+        glass_id: 2,
+        client_id: null,
+        supplier_id: 'Dibo',
+        employee_id: null,
+        brand: 'cuore',
+        gradue: 0.2,
+        frame: 'Pasta',
+        colorFrame: 'white',
+        colorLens: 'clear',
+        price: 35.5,
+        whenSell: null
+    },
+    { 
+        glass_id: 3,
+        client_id: 'Nina',
+        supplier_id: 'Pinco',
+        employee_id: 'Pepa',
+        brand: 'armadi',
+        gradue: 0.1,
+        frame: 'Flotant',
+        colorFrame: 'brown',
+        colorLens: 'red',
+        price: 82.5,
+        whenSell: new ISODate('2021-03-12')
+    },
+    { 
+        glass_id: 4,
+        client_id: null,
+        supplier_id: 'Pinco',
+        employee_id: null,
+        brand: 'rufus',
+        gradue: 0.2,
+        frame: 'Metallica',
+        colorFrame: 'green',
+        colorLens: 'yellow',
+        price: 65.5,
+        whenSell: null
     }
 ]);
 
