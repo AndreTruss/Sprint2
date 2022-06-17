@@ -50,9 +50,10 @@ db.users.insertMany([
             date_creation: new ISODate('2022-06-17T12:20:00Z'),
             status: 'active',
             who_share: [
-                {
-
-            }]
+                {user_id: 2, song_id: 1, date_sharing: new ISODate('2022-06-17T12:20:00Z')},
+                {user_id: 3, song_id: 5, date_sharing: new ISODate('2022-06-20T12:20:00Z')}
+            ],
+            favorites: {artist_id: 1, album_id: null, song_id: [ 1, 3 ]}
             }
         ]
     },
@@ -73,7 +74,8 @@ db.users.insertMany([
             payment_mode: 'paypal',
             paypal: {user_name: 'od@sd.es'},
             payments: [{ date_pay: new ISODate('2022-01-07T12:20:00Z'), amount: 10.5 }]
-        }
+        },
+        favorites: {artist_id: [ 1, 2 ], album_id: 1, song_id: [ 1, 5 ]}
     }
 ]);
 
