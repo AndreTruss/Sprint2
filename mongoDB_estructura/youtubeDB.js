@@ -43,11 +43,7 @@ db.users.insertMany([
             date: new ISODate('2022-06-07T00:00:00Z'),
             subscriber: [{user_id: 1}]
         }
-    }
-]);
-
-
-db.videos.insertMany([ 
+    }, 
     {
         video_id: 1,
         user_id: 1,
